@@ -1,0 +1,7 @@
+import Cart from "../components/cart/cart.tsx";
+
+
+export default function CartPage() {
+
+return (<Cart />)
+}
