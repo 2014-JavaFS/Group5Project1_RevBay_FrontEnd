@@ -11,7 +11,6 @@ export default function profilePageButton(){
     }
     return(
         <div>
-        <h1>TESTING</h1>
         <button onClick={changePage}>Profile Page</button>
         </div>
     );
