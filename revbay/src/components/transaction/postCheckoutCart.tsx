@@ -6,6 +6,7 @@ import axios from "axios"
 export default function postCheckoutCart(){
 
     const[val, setVal]=useState(0);
+    const[checkedOut, toCheckOut]= useState("");
 
     async function sendCheckoutRequest(){
         try{
@@ -35,13 +36,29 @@ export default function postCheckoutCart(){
 
         axios.request(config)
         .then((response) => {
-             console.log(JSON.stringify(response.data));
+             //console.log(JSON.stringify(response.data));
+             toCheckOut(JSON.stringify(response.data));
         })
          .catch((error) => {
             console.log(error);
         });
 
     }
+
+
+    useEffect(() => {
+        toCheckOut("Cart Will Return Here");
+      }, []);
+
+      function DisplayCheckoutReturn(){
+
+        return(
+            <div>
+                <p>May Take a Bit To Load After Press</p>
+                <h1>{checkedOut}</h1>
+            </div>
+        )
+      }
 
     return(
         <div>
@@ -58,6 +75,7 @@ export default function postCheckoutCart(){
             </label>
             <br></br>
             <button onClick={sendCheckoutPostmanRequest}>Send Checkout Request</button>
+            <DisplayCheckoutReturn />
 
         </div>
     );
