@@ -1,0 +1,35 @@
+import { useEffect, useState } from "react";
+import { revbayServer } from "../common/revbay-server";
+export default function ProductPage(){
+
+    const[products, setProducts] = useState([])
+    const[cart,setCart] = useState([])
+        async function fetchData() {
+          try {
+            const response = await revbayServer.get("products")
+            const names = response.data.map((x:any)=>x.name)
+            console.log(names)
+            setProducts(names)
+          } catch (error:any) {
+            console.log(error)
+          } 
+        }
+        
+    
+    
+      
+    return  <>
+    <h1>Welcome to Products Page</h1>
+    <ul>
+        {products.length > 0 ? (
+            products.map((product, index) => (
+                <li key={index}> {product} <button>Add to cart</button> </li>
+            ))
+        ) : (
+            <p>No Products to Display</p>
+        )}
+    </ul>
+    <button onClick={fetchData}>Get Available Products</button>
+</>
+
+}
