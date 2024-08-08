@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { revbayServer } from "../../common/revbay-server";
+import { MyContext } from "../../common/context";
 
 export default function LoginForm() {
     let userId = 0; 
@@ -11,6 +12,7 @@ export default function LoginForm() {
     const emailInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
+    const{setUserId} = useContext(MyContext)
     
     async function login() {
         console.log(emailInput.current?.value);
@@ -25,7 +27,8 @@ export default function LoginForm() {
             console.log(axResp.status);
             setStatus(axResp.status);
             isLoggedIn = true;
-
+            //added userId to context
+            setUserId(userId)
         } catch(error) {
             setStatus(401);
             console.error(error);

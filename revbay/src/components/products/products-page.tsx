@@ -1,25 +1,29 @@
 import { useContext, useRef, useState } from "react";
 import { revbayServer } from "../../common/revbay-server";
 import { MyContext } from "../../common/context";
-
+import { usePostCart } from "../cart/postCart";
+ 
+ 
 export default function ProductPage(){
-
+ 
     const[products, setProducts] = useState([])
     const{setValue1, setValue2} = useContext(MyContext)
-     const { value1, value2 } = useContext(MyContext);
+    const { value1, value2 } = useContext(MyContext);
     const quanityRef = useRef([])
-    
+    //hook of postCart
+    const { addToCart } = usePostCart();
+ 
         async function fetchData() {
           try {
             const response = await revbayServer.get("products")
             const productFound = response.data.map((x: any) => ({ id:x.productId,name: x.name, price: x.price, quantity : x.quantity }));
-            
+           
             setProducts(productFound)
           } catch (error:any) {
             console.log(error)
-          } 
+          }
         }
-
+ 
          async function handleAddToCart (product, index){
             const quantity = quanityRef.current[index].value
             console.log(`Adding ${quantity} of ${product.name} ${product.id} to cart`)
@@ -27,8 +31,15 @@ export default function ProductPage(){
              setValue2(quantity)
             console.log(value1)
             console.log(value2)
-
-        }   
+           
+            if (value1 != null) {
+                await addToCart();
+            }
+            else {
+                console.log("value is null click again")
+            }
+        }
+ 
     return  <>
     <h1>Welcome to Products Page</h1>
     <ul>
@@ -40,9 +51,7 @@ export default function ProductPage(){
                 ref = {el=> quanityRef.current[index]=el}
                 step={1.0}
             />
-            <button  onClick={()=>handleAddToCart(product,index)}
-                >
-                
+            <button onClick={()=>handleAddToCart(product,index)}>
                 Add to cart
             </button> </li>
             ))
@@ -52,5 +61,5 @@ export default function ProductPage(){
     </ul>
     <button onClick={fetchData}>Get Available Products</button>
 </>
-
+ 
 }
