@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { revbayServer } from "../common/revbay-server";
+import { revbayServer } from "../../common/revbay-server";
 export default function ProductPage(){
 
     const[products, setProducts] = useState([])
