@@ -9,6 +9,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Account from './pages/account'
 
+
 export default function App() {
   return (
     <>
@@ -19,8 +20,9 @@ export default function App() {
           <Route path="user/:userId" element={<Account />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+
         </Routes> 
       </BrowserRouter>
     </>
   )
-}
+
