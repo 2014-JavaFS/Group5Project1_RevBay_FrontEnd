@@ -16,7 +16,7 @@ export default function App() {
       <NavigationBar />
         <Routes>
           <Route index element={<Home />}/>
-          <Route path="user-profile" element={<Account />} />
+          <Route path="user/:userId" element={<Account />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
         </Routes> 

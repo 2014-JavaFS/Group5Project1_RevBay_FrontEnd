@@ -7,7 +7,7 @@ export default function NavigationBar() {
             <Container>
             <Navbar.Brand href="/">RevBay</Navbar.Brand>
             <Nav className="me-auto">
-                <Nav.Link href="/user-profile">Profile</Nav.Link>
+                <Nav.Link href="/user-profile/:userId">Profile</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
             </Nav>
             </Container>
