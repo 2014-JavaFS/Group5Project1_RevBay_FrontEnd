@@ -7,9 +7,9 @@ export default function ProductPage(){
         async function fetchData() {
           try {
             const response = await revbayServer.get("products")
-            const names = response.data.map((x:any)=>x.name)
-            console.log(names)
-            setProducts(names)
+            const productFound = response.data.map((x: any) => ({ name: x.name, price: x.price, quantity : x.quantity }));
+            
+            setProducts(productFound)
           } catch (error:any) {
             console.log(error)
           } 
@@ -23,7 +23,7 @@ export default function ProductPage(){
     <ul>
         {products.length > 0 ? (
             products.map((product, index) => (
-                <li key={index}> {product} <button>Add to cart</button> </li>
+                <li key={index}> {product.name} - ${product.price} -Qt{product.quantity}<button>Add to cart</button> </li>
             ))
         ) : (
             <p>No Products to Display</p>
