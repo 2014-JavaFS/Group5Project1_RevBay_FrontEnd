@@ -1,17 +1,38 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { revbayServer } from "../../common/revbay-server";
 
 export default function SignupForm() {
+    const [status,setStatus] = useState<number>(0);
+
     const firstNameInput = useRef<HTMLInputElement>(null);
     const lastNameInput = useRef<HTMLInputElement>(null);
     const emailInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
 
-    function createNewUser() {
+    async function createNewUser() {
         console.log(`Name: ${firstNameInput.current?.value} ${lastNameInput.current?.value}`);
         console.log(`Email: ${emailInput.current?.value}`);
         console.log(`Password: ${passwordInput.current?.value}`);
+
+        try {
+            const axResp = await revbayServer.post("users", {
+                firstName: firstNameInput.current?.value,
+                lastName: lastNameInput.current?.value,
+                email: emailInput.current?.value,
+                password: passwordInput.current?.value,
+                userType: "BUYER"
+            });
+
+            setStatus(axResp.status);
+            console.log(status);
+            console.log(axResp.data);
+
+        } catch (error) {
+            setStatus(409);
+            console.error(error);
+        }
     }
 
     return (
@@ -57,10 +78,20 @@ export default function SignupForm() {
                 */}
 
                 <br/>
-                <Button variant="dark" type="submit" onClick={createNewUser}>
+                <Button variant="dark" onClick={createNewUser}>
                     Create Account
                 </Button>
             </Form>
+
+            {status !== 0 ? 
+                <p>
+                    {
+                        status >= 400 ? 
+                        "That email is already registered. Please sign in to continue." : 
+                        "Account successfully created."
+                    }
+                </p> : ""
+            }
         </>
     );
 }
