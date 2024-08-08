@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
 import { revbayServer } from "../../common/revbay-server";
 import DisplayCart from './displayCart.tsx';
 import UpdateCart from "./updateCart.tsx";
 import DeleteCart from "./deleteCart.tsx";
 import PostCart from "./postCart.tsx";
+import { MyContext } from "../../common/context.tsx";
 
 export default function GetCartById() {
     const {id} = useParams();
     const [cartItems, setCartItems] = useState([]);
-    
+    const { value1, value2 } = useContext(MyContext);
     async function getAllCart() {
         try {
             const axResp = await revbayServer.get(`cart/${id}`)
