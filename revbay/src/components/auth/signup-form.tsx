@@ -1,15 +1,18 @@
 import { useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { revbayServer } from "../../common/revbay-server";
 
 export default function SignupForm() {
     const [status,setStatus] = useState<number>(0);
+    const navigate = useNavigate();
 
     const firstNameInput = useRef<HTMLInputElement>(null);
     const lastNameInput = useRef<HTMLInputElement>(null);
     const emailInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
+
+    let accountCreated = false;
 
     async function createNewUser() {
         console.log(`Name: ${firstNameInput.current?.value} ${lastNameInput.current?.value}`);
@@ -28,11 +31,15 @@ export default function SignupForm() {
             setStatus(axResp.status);
             console.log(status);
             console.log(axResp.data);
+            accountCreated = true;
 
         } catch (error) {
             setStatus(409);
             console.error(error);
         }
+        
+        if(accountCreated)
+            navigate("/login");
     }
 
     return (
@@ -59,23 +66,6 @@ export default function SignupForm() {
                 <Form.Group className="mb-3">
                     <Form.Control id="passwordInput" type="password" placeholder="Password" ref={passwordInput} />
                 </Form.Group>
-                {/* 
-                <Form.Group className="mb-3">
-                    <Form.Text className="text-muted">
-                        Are you signing up as a buyer or a seller? 
-                    </Form.Text>
-                                        
-                    <br/>
-                    <ToggleButtonGroup type="radio" name="userType" defaultValue={"buyer"}>
-                        <ToggleButton id="buyer" variant="outline-dark" value={"buyer"}>
-                            Buyer
-                        </ToggleButton>
-                        <ToggleButton id="seller" variant="outline-dark" value={"seller"}>
-                            Seller
-                        </ToggleButton>
-                    </ToggleButtonGroup> 
-                </Form.Group>
-                */}
 
                 <br/>
                 <Button variant="dark" onClick={createNewUser}>
@@ -92,6 +82,7 @@ export default function SignupForm() {
                     }
                 </p> : ""
             }
+
         </>
     );
 }
