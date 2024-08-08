@@ -6,7 +6,6 @@ export default function ProductPage(){
 
     const[products, setProducts] = useState([])
     const{setValue1, setValue2} = useContext(MyContext)
-     const { value1, value2 } = useContext(MyContext);
     const quanityRef = useRef([])
     
         async function fetchData() {
@@ -25,8 +24,6 @@ export default function ProductPage(){
             console.log(`Adding ${quantity} of ${product.name} ${product.id} to cart`)
              setValue1(product.id)
              setValue2(quantity)
-            console.log(value1)
-            console.log(value2)
 
         }   
     return  <>

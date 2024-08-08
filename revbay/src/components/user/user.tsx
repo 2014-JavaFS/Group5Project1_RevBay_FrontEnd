@@ -1,11 +1,13 @@
 import { Button, Card } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { revbayServer } from "../../common/revbay-server";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MyContext } from "../../common/context";
 
 export default function UserProfile() {
     const [user, setUser] = useState(Object);
-    const {userId} = useParams();
+    const{userId} = useContext(MyContext)
+    //const {userId} = useParams();
     
         useEffect(() => {
             if(userId) {
