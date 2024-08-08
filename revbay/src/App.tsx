@@ -8,6 +8,7 @@ import NavigationBar from './components/navigation-bar'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Account from './pages/account'
+import ProductsHome from './pages/products-home'
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route index element={<Home />}/>
           <Route path="user/:userId" element={<Account />} />
+          <Route path="products" element={<ProductsHome/>}/>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
 
@@ -26,3 +28,4 @@ export default function App() {
     </>
   )
 
+}
