@@ -9,6 +9,8 @@ export default function NavigationBar() {
             <Nav className="me-auto">
                 <Nav.Link href="/user-profile/:userId">Profile</Nav.Link>
                 <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/products">Product</Nav.Link>
+                <Nav.Link href="/cart">Cart</Nav.Link>
             </Nav>
             </Container>
         </Navbar>

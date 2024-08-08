@@ -9,6 +9,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Account from './pages/account'
 import ProductsHome from './pages/products-home'
+import GetCartById from './components/cart/cart'
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="products" element={<ProductsHome/>}/>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path='cart/:id' element={<GetCartById/>}/>
 
         </Routes> 
       </BrowserRouter>

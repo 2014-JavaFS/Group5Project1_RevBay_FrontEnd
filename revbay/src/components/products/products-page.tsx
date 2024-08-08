@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { revbayServer } from "../../common/revbay-server";
+import GetCartById from "../cart/cart";
 
 export default function ProductPage(){
 
@@ -19,13 +20,11 @@ export default function ProductPage(){
 
          async function handleAddToCart (product, index){
             const quantity = quanityRef.current[index].value
-            console.log(`Adding ${quantity} of ${product.name} ${product.id} to cart`) 
+            console.log(`Adding ${quantity} of ${product.name} ${product.id} to cart`)
+           
             
-        }
-        
-    
-    
-      
+
+        }    
     return  <>
     <h1>Welcome to Products Page</h1>
     <ul>
@@ -37,7 +36,9 @@ export default function ProductPage(){
                 ref = {el=> quanityRef.current[index]=el}
                 step={1.0}
             />
-            <button  onClick={()=>handleAddToCart(product,index)}>
+            <button  onClick={()=>handleAddToCart(product,index)}
+                >
+                
                 Add to cart
             </button> </li>
             ))
