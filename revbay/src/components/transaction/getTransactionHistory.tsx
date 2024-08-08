@@ -40,7 +40,7 @@ let data = JSON.stringify(val);
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'http://localhost:8080/Transactions/History',
+  url: 'http://localhost:9090/Transactions/History',
   headers: { 
     'Content-Type': 'application/json'
   },

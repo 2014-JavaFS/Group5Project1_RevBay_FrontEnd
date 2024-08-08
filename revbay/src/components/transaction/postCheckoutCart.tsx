@@ -27,7 +27,7 @@ export default function postCheckoutCart(){
         let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/Transactions/Checkout',
+        url: 'http://localhost:9090/Transactions/Checkout',
         headers: { 
          'Content-Type': 'application/json'
          },
