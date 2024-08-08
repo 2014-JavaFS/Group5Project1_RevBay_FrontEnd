@@ -1,11 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 const defaultContextValue = {
     value1: 0,
     value2: 1,
-    userId:0,
     setValue1: () => {},
-    setValue2: () => {},
-    setUserId: () => {}
+    setValue2: () => {}
 };
 export const MyContext = createContext(defaultContextValue);
 
@@ -13,10 +11,12 @@ export const MyContext = createContext(defaultContextValue);
 export function MyContextProvider ( {children} ) {
     const [value1, setValue1] = useState<number>(null);
     const [value2, setValue2] = useState<number>(null);
-    const [userId, setUserId] = useState<number>(null);
-    
+    const contextValue = useMemo(
+        () => ({ value1, setValue1, value2, setValue2 }),
+        [value1, value2]
+    );
     return (
-        <MyContext.Provider value={{ value1, value2,userId, setValue1, setValue2,setUserId }}>
+        <MyContext.Provider value={ contextValue}>
             {children}
         </MyContext.Provider>
     );

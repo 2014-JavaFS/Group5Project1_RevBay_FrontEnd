@@ -1,8 +1,8 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { revbayServer } from "../../common/revbay-server";
-import { MyContext } from "../../common/context";
+import { MyUserContext } from "../../common/userContext";
 
 export default function LoginForm() {
     let userId = 0; 
@@ -12,23 +12,24 @@ export default function LoginForm() {
     const emailInput = useRef<HTMLInputElement>(null);
     const passwordInput = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
-    const{setUserId} = useContext(MyContext)
-    
+    const{setUserId} = useContext(MyUserContext)
+
     async function login() {
         console.log(emailInput.current?.value);
         console.log(passwordInput.current?.value);
-
+        // Trigger the effect when value1 changes
         try {
             const axResp = await revbayServer.post(`auth?email=${emailInput.current?.value}&password=${passwordInput.current?.value}`);
             
             console.log(axResp.headers.userid, axResp.headers.usertype);
             userId = axResp.headers.userid
-
+            console.log('userid'+ userId)
             console.log(axResp.status);
             setStatus(axResp.status);
             isLoggedIn = true;
             //added userId to context
             setUserId(userId)
+        
         } catch(error) {
             setStatus(401);
             console.error(error);

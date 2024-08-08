@@ -1,17 +1,17 @@
 import { Button, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
 import { revbayServer } from "../../common/revbay-server";
 import { useContext, useEffect, useState } from "react";
-import { MyContext } from "../../common/context";
+import { MyUserContext } from "../../common/userContext";
 
 export default function UserProfile() {
     const [user, setUser] = useState(Object);
-    const{userId} = useContext(MyContext)
+    const{userIdContext} = useContext(MyUserContext)
+    console.log('user id though context'+userIdContext)
     //const {userId} = useParams();
-    
+    console.log(userIdContext)
         useEffect(() => {
-            if(userId) {
-                revbayServer.get(`users/${userId}`)
+            if(userIdContext) {
+                revbayServer.get(`users/${userIdContext}`)
                 .then(axRes => {
                     console.log(axRes)
                     setUser(axRes.data)
@@ -20,7 +20,7 @@ export default function UserProfile() {
                     console.log(error)
                 })
             }
-        }, [userId]);
+        }, [userIdContext]);
 
        
     return (
