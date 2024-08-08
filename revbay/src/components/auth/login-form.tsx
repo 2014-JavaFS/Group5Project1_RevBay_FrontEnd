@@ -29,6 +29,7 @@ export default function LoginForm() {
             isLoggedIn = true;
             //added userId to context
             setUserId(userId)
+            isLoggedIn = true
         
         } catch(error) {
             setStatus(401);
