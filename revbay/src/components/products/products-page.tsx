@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react";
 import { revbayServer } from "../../common/revbay-server";
-import GetCartById from "../cart/cart";
 import { MyContext } from "../../common/context";
 
 export default function ProductPage(){
@@ -25,7 +24,7 @@ export default function ProductPage(){
             const quantity = quanityRef.current[index].value
             console.log(`Adding ${quantity} of ${product.name} ${product.id} to cart`)
              setValue1(product.id)
-             setValue2(product.quantity)
+             setValue2(quantity)
             console.log(value1)
             console.log(value2)
 
